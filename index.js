@@ -11,8 +11,12 @@ const app = express()
 // chamando o banco
 const conn = require("./db/conn")
 
+// models
+const Tought = require("./models/Tought")
+const User = require("./models/User")
+
 // definindo a template engine sendo hbs
-app.engine('handlebars', exphbs())
+app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
 
 // receber resposta do body em json
