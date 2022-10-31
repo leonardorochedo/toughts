@@ -13,19 +13,19 @@
 <body>
     <nav id="navbar">
         <a href="/" id="logo"><img src="/img/toughts_logo.png" alt="Toughts"></a>
+        <ul>
+            <li><a href="/">Pensamentos</a></li>
+            {{!-- URL pos autenticacao --}}
+            <li><a href="/login">Entrar</a></li>
+            <li><a href="/register">Registrar</a></li>
+        </ul>
     </nav>
-    <ul>
-        <li><a href="/">Pensamentos</a></li>
-        {{!-- URL pos autenticacao --}}
-        <li><a href="/login">Entrar</a></li>
-        <li><a href="/register">Registrar</a></li>
-    </ul>
     <div class="container">
         {{!-- Mensagens --}}
         {{{body}}}
     </div>
     <footer>
-        <p><span>Toughts</span>&copy; 2022</p>
+        <p><span>Toughts</span> &copy; 2022</p>
     </footer>
 </body>
 </html>
