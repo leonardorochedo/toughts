@@ -17,6 +17,7 @@ const User = require("./models/User")
 
 // routes
 const toughtsRoutes = require("./routes/toughtsRoutes")
+const authRoutes = require("./routes/authRoutes")
 
 // controller
 const ToughtsController = require("./controllers/ToughtsController")
@@ -72,6 +73,8 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/toughts', toughtsRoutes)
+app.use('/', authRoutes)
+
 app.get('/', ToughtsController.showToughts)
 
 // iniciando o banco juntamente com o express
