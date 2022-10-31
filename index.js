@@ -15,6 +15,12 @@ const conn = require("./db/conn")
 const Tought = require("./models/Tought")
 const User = require("./models/User")
 
+// routes
+const toughtsRoutes = require("./routes/toughtsRoutes")
+
+// controller
+const ToughtsController = require("./controllers/ToughtsController")
+
 // definindo a template engine sendo hbs
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
@@ -63,6 +69,10 @@ app.use((req, res, next) => {
 
     next() // seguindo
 })
+
+// routes
+app.use('/toughts', toughtsRoutes)
+app.get('/', ToughtsController.showToughts)
 
 // iniciando o banco juntamente com o express
 conn
