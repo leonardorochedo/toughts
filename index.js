@@ -79,6 +79,7 @@ app.get('/', ToughtsController.showToughts)
 
 // iniciando o banco juntamente com o express
 conn
+// .sync({ force: true })
 .sync()
 .then(() => {
     app.listen(3000)
