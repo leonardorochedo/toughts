@@ -11,6 +11,10 @@ router.get('/add', checkAuth, ToughtsController.createTought) // 2 arguymento de
 router.post('/add', checkAuth, ToughtsController.createToughtSave) // 2 arguymento de validacao de rota
 
 router.get('/dashboard', checkAuth, ToughtsController.dashboard) // 2 arguymento de validacao de rota
+
+// remove / edit tought
+router.post('/remove', checkAuth, ToughtsController.removeTought)
+
 router.get('/', ToughtsController.showToughts)
 
 module.exports = router

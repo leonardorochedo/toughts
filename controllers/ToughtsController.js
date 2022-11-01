@@ -55,4 +55,25 @@ module.exports = class ToughtsController {
         }
         
     }
+
+    static async removeTought(req, res) {
+
+        const toughtId = req.body.id
+        const UserId = req.session.userid
+
+        try {
+            // remover com o id do tought e do user junto
+            await Tought.destroy({ where: { id: toughtId, UserId: UserId } })
+            
+            req.flash('message', 'Pensamento removido com sucesso!')
+
+            // salvando a sessao e redirecionando
+            req.session.save(() => {
+                res.redirect('/toughts/dashboard')
+            })
+        } catch(err) {
+            console.log(err)
+        }
+
+    }
 }
