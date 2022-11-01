@@ -17,9 +17,11 @@
             <li><a href="/">Pensamentos</a></li>
             {{!-- URL pos autenticacao --}}
             {{#if session.userid}}
+            {{!-- Se o usuario esta com uma sessao ativa --}}
                 <li><a href="/toughts/dashboard">Dashboard</a></li>
                 <li><a href="/logout">Sair</a></li>
             {{else}}
+            {{!-- Se nao esta --}}
                 <li><a href="/login">Entrar</a></li>
                 <li><a href="/register">Registrar</a></li>
             {{/if}}
