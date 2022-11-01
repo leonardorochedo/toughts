@@ -2,16 +2,35 @@
 const Tought = require("../models/Tought")
 const User = require("../models/User")
 
+// like sql
+const { Op } = require("sequelize")
+
 module.exports = class ToughtsController {
     static async showToughts(req, res) {
 
+        let search = ''
+
+        // se tiver alguma search colocar na variavel
+        if(req.query.search) {
+            search = req.query.search
+        }
+
         const toughtsData = await Tought.findAll({
             include: User,
+            where: {
+                title: {[Op.like]: `%${search}%`} // like sql
+            }
         }) // pegando todos os pensamentos incluindo o user
 
         const toughts = toughtsData.map((result) => result.get({ plain: true })) // dando um map e juntando todos em um array com o plain
 
-        res.render('toughts/home', { toughts })
+        let toughtsQty = toughts.length
+
+        if(toughtsQty === 0) {
+            toughtsQty = false
+        }
+
+        res.render('toughts/home', { toughts, search, toughtsQty })
     }
 
     static async dashboard(req, res) {
