@@ -121,6 +121,28 @@ form input[type='submit']:hover,
     color: #FFF;
 }
 
+/* CREATE / EDIT FORM */
+.tought-form-container a {
+    color: var(--primary-color);
+    transition: .5s;
+}
+
+.tought-form-container a:hover {
+    color: #FFF;
+}
+
+.tought-form-container h1 {
+    margin: 1em 0;
+    color: #FFF;
+    border-left: 4px solid var(--primary-color);
+    padding: .3em;
+}
+
+.tought-form-container form {
+    margin-top: 1.5em;
+    max-width: 30%;
+}
+
 /* FOOTER */
 footer {
     height: 150px;
