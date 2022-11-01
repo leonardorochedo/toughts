@@ -83,4 +83,35 @@ module.exports = class ToughtsController {
         }
 
     }
+
+    static async editTought(req, res) {
+
+        const toughtId = req.params.id
+        
+        const tought = await Tought.findOne({ where: { id: toughtId }, raw: true })
+
+        res.render('toughts/edit', { tought })
+    }
+
+    static async editToughtSave(req, res) {
+
+        const id = req.body.id
+
+        const tought = {
+            title: req.body.title
+        }
+        
+        try {
+            await Tought.update(tought, { where: { id: id } }) // update no banco
+
+            req.flash('message', 'Pensamento atualizado com sucesso!')
+            req.session.save(() => {
+                res.redirect('/toughts/dashboard')
+            })
+        } catch(err) {
+            console.log(err)
+        }
+
+        
+    }
 }
