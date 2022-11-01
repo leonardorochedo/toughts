@@ -15,11 +15,21 @@ module.exports = class ToughtsController {
             search = req.query.search
         }
 
+        // definindo a ordem como decrescente
+        let order = 'DESC'
+
+        if(req.query.order == 'old') {
+            order = 'ASC'
+        } else {
+            order = 'DESC'
+        }
+
         const toughtsData = await Tought.findAll({
             include: User,
             where: {
                 title: {[Op.like]: `%${search}%`} // like sql
-            }
+            },
+            order: [['createdAt', order]],
         }) // pegando todos os pensamentos incluindo o user
 
         const toughts = toughtsData.map((result) => result.get({ plain: true })) // dando um map e juntando todos em um array com o plain
