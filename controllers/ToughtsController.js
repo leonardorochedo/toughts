@@ -4,7 +4,14 @@ const User = require("../models/User")
 
 module.exports = class ToughtsController {
     static async showToughts(req, res) {
-        res.render('toughts/home')
+
+        const toughtsData = await Tought.findAll({
+            include: User,
+        }) // pegando todos os pensamentos incluindo o user
+
+        const toughts = toughtsData.map((result) => result.get({ plain: true })) // dando um map e juntando todos em um array com o plain
+
+        res.render('toughts/home', { toughts })
     }
 
     static async dashboard(req, res) {
