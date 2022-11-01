@@ -26,7 +26,14 @@ module.exports = class ToughtsController {
         // limpando o array com map e selecionando apenas o dataValues
         const toughts = user.Toughts.map((result) => result.dataValues)
 
-        res.render('toughts/dashboard', { toughts })
+        let emptyToughts = false
+
+        // verificando se tem alguma tarefa
+        if(toughts.length === 0) {
+            emptyToughts = true
+        }
+
+        res.render('toughts/dashboard', { toughts, emptyToughts })
     }
 
     static createTought(req, res) {

@@ -186,6 +186,10 @@ form input[type='submit']:hover,
     margin: 0 .5em;
 }
 
+.dashboard a {
+    color: var(--primary-color);
+}
+
 /* FOOTER */
 footer {
     height: 150px;
