@@ -2,6 +2,9 @@
 const Tought = require("../models/Tought")
 const User = require("../models/User")
 
+// bcrypt
+const bcrypt = require("bcryptjs")
+
 // like sql
 const { Op } = require("sequelize")
 
@@ -70,6 +73,70 @@ module.exports = class ToughtsController {
         }
 
         res.render('toughts/dashboard', { toughts, emptyToughts })
+    }
+
+    static async profile(req, res) {
+
+        const userId = req.session.userid
+
+        const user = await User.findOne({ raw: true ,where: { id: userId } })
+
+        res.render('toughts/profile', { user })
+    }
+
+    static async profileSave(req, res) {
+
+        const userId = req.session.userid
+
+        const user = await User.findOne({ where: { id: userId } })
+
+        const {name, email, password} = req.body
+
+        // se os dados foram iguais
+        if(name === user.name && email === user.email) {
+            req.flash('message', 'Dados permanecem iguais!')
+            req.session.save(() => {
+                res.redirect('/toughts/profile')
+            })
+
+            return // para o codigo parar aqui
+        }
+
+        const checkIfPasswordMatch = bcrypt.compareSync(password, user.password)
+
+        // se as senhas não forem iguais
+        if(!checkIfPasswordMatch) {
+            req.flash('message', 'Senha incorreta!')
+            req.session.save(() => {
+                res.redirect('/toughts/profile')
+            })
+
+            return // para o codigo parar aqui
+        }
+
+
+
+        // usuario editado
+        const salt = bcrypt.genSaltSync(10)
+        const hashedPassword = bcrypt.hashSync(password, salt) // encrypting password
+
+        const userEdited = {
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword
+        }
+
+        try {
+            await User.update(userEdited , { where: { id: userId } })
+
+            req.flash('message', 'Perfil atualizado com sucesso!')
+            req.session.save(() => {
+                res.redirect('/')
+            })
+        } catch(err) {
+            console.log(err)
+        }
+
     }
 
     static createTought(req, res) {

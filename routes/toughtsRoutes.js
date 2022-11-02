@@ -12,6 +12,10 @@ router.post('/add', checkAuth, ToughtsController.createToughtSave) // 2 arguymen
 
 router.get('/dashboard', checkAuth, ToughtsController.dashboard) // 2 arguymento de validacao de rota
 
+router.get('/profile', checkAuth, ToughtsController.profile)
+router.post('/profile', checkAuth, ToughtsController.profileSave)
+
+
 // remove / edit tought
 router.post('/remove', checkAuth, ToughtsController.removeTought)
 router.get('/edit/:id', checkAuth, ToughtsController.editTought)
